@@ -1,0 +1,149 @@
+---
+- name: Configure linux workstation
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Remove all unwanted packages installed by default
+      package:
+        name:
+          - mediawriter
+          - gnome-tour
+          - gnome-system-monitor
+          - gnome-shell-extension-apps-menu
+          - gnome-shell-extension-background-logo
+          - gnome-shell-extension-common
+          - gnome-shell-extension-launch-new-instance
+          - gnome-shell-extension-places-menu
+          - gnome-shell-extension-window-list
+          - gnome-contacts
+          - gnome-classic-session
+          - gnome-boxes
+          - showtime
+        state: absent
+
+    - name: Install RPM Fusion free repository
+      ansible.builtin.dnf:
+        name: "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm"
+        state: present
+
+    - name: Install RPM Fusion nonfree repository
+      ansible.builtin.dnf:
+        name: "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm"
+        state: present
+
+    - name: Enable fedora-cisco-openh264 repository
+      ansible.builtin.ini_file:
+        path: /etc/yum.repos.d/fedora-cisco-openh264.repo
+        section: fedora-cisco-openh264
+        option: enabled
+        value: "1"
+
+    - name: Refresh DNF cache
+      ansible.builtin.dnf:
+        update_cache: true
+
+    - name: Install packages
+      package:
+        name:
+          - neovim
+          - tmux
+          - ncdu
+          - python3-psutil
+          - tealdeer
+          - flatpak
+          - gnome-extensions-app
+          - steam
+        state: present
+
+    - name: Add the flathub flatpak repository remote to the user installation
+      community.general.flatpak_remote:
+        name: flathub
+        state: present
+        flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+        method: user
+
+    - name: Install flapak applications
+      flatpak:
+        name:
+          - org.mozilla.Thunderbird
+          - md.obsidian.Obsidian
+          - com.spotify.Client
+          - com.slack.Slack
+          - com.discordapp.Discord
+          - com.bitwarden.desktop
+          - com.mikrotik.WinBox
+        state: present
+      
+    - name: Add VSCodium repository
+      copy:
+        dest: /etc/yum.repos.d/vscodium.repo
+        content: |
+          [gitlab.com_paulcarroty_vscodium_repo]
+          name=gitlab.com_paulcarroty_vscodium_repo
+          baseurl=https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/rpms/
+          enabled=1
+          gpgcheck=1
+          repo_gpgcheck=1
+          gpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
+          metadata_expire=1h
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Import VSCodium GPG key
+      rpm_key:
+        key: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
+        state: present
+
+    - name: Install VSCodium
+      package:
+        name: codium
+        state: present
+
+    - name: Enable right-click resize
+      become_user: kamil
+      community.general.dconf:
+        key: "/org/gnome/desktop/wm/preferences/resize-with-right-button"
+        value: "true"
+        state: "present"
+
+    - name: Disable mouse acceleration
+      become_user: kamil
+      community.general.dconf:
+        key: "/org/gnome/desktop/peripherals/mouse/accel-profile"
+        value: "'flat'"
+        state: "present"
+
+    - name: Change to dark color scheme
+      become_user: kamil
+      community.general.dconf:
+        key: "/org/gnome/desktop/interface/color-scheme"
+        value: "'prefer-dark'"
+        state: present
+
+    - name: Download wallpaper
+      get_url:
+        url: https://4kwallpapers.com/images/wallpapers/brown-mountains-aerial-view-mountain-range-landscape-3440x1440-2837.jpg
+        dest: "/home/kamil/.config/background"
+
+    - name: Set as GNOME background
+      become_user: kamil
+      community.general.dconf:
+        key: "/org/gnome/desktop/background/picture-uri"
+        value: "'file:///home/kamil/.config/background'"
+        state: present
+  
+    - name: Set as GNOME dark background
+      become_user: kamil
+      community.general.dconf:
+        key: "/org/gnome/desktop/background/picture-uri-dark"
+        value: "'file:///home/kamil/.config/background'"
+        state: present
+
+    - name: Set GNOME dock favorite applications
+      become_user: kamil
+      community.general.dconf:
+        key: "/org/gnome/shell/favorite-apps"
+        value: "['org.mozilla.firefox.desktop', 'org.gnome.Ptyxis.desktop', 'org.gnome.Nautilus.desktop', 'org.mozilla.Thunderbird.desktop', 'md.obsidian.Obsidian.desktop', 'codium.desktop', 'com.mikrotik.WinBox.desktop', 'com.spotify.Client.desktop', 'com.slack.Slack.desktop', 'com.discordapp.Discord.desktop', 'steam.desktop']"
+        state: present
