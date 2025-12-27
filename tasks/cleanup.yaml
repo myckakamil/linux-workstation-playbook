@@ -1,0 +1,5 @@
+---
+- name: Remove unwanted default packages
+  package:
+    name: "{{ unwanted_packages }}"
+    state: absent

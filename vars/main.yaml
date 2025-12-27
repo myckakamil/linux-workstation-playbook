@@ -1,0 +1,53 @@
+---
+user_name: kamil
+user_home: "/home/{{ user_name }}"
+
+unwanted_packages:
+  - mediawriter
+  - gnome-tour
+  - gnome-system-monitor
+  - gnome-shell-extension-apps-menu
+  - gnome-shell-extension-background-logo
+  - gnome-shell-extension-common
+  - gnome-shell-extension-launch-new-instance
+  - gnome-shell-extension-places-menu
+  - gnome-shell-extension-window-list
+  - gnome-contacts
+  - gnome-classic-session
+  - gnome-boxes
+  - showtime
+
+base_packages:
+  - neovim
+  - tmux
+  - ncdu
+  - python3-psutil
+  - tealdeer
+  - flatpak
+  - gnome-extensions-app
+  - steam
+
+flatpak_apps:
+  - org.mozilla.Thunderbird
+  - md.obsidian.Obsidian
+  - com.spotify.Client
+  - com.slack.Slack
+  - com.discordapp.Discord
+  - com.bitwarden.desktop
+  - com.mikrotik.WinBox
+
+wallpaper_url: "https://4kwallpapers.com/images/wallpapers/brown-mountains-aerial-view-mountain-range-landscape-3440x1440-2837.jpg"
+wallpaper_path: "{{ user_home }}/.config/background"
+
+gnome_favorite_apps:
+  - org.mozilla.firefox.desktop
+  - org.gnome.Ptyxis.desktop
+  - org.gnome.Nautilus.desktop
+  - org.mozilla.Thunderbird.desktop
+  - md.obsidian.Obsidian.desktop
+  - codium.desktop
+  - com.mikrotik.WinBox.desktop
+  - com.spotify.Client.desktop
+  - com.slack.Slack.desktop
+  - com.discordapp.Discord.desktop
+  - steam.desktop

@@ -1,0 +1,47 @@
+---
+- name: Enable right-click resize
+  become_user: "{{ user_name }}"
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/preferences/resize-with-right-button"
+    value: "true"
+    state: present
+
+- name: Disable mouse acceleration
+  become_user: "{{ user_name }}"
+  community.general.dconf:
+    key: "/org/gnome/desktop/peripherals/mouse/accel-profile"
+    value: "'flat'"
+    state: present
+
+- name: Enable dark color scheme
+  become_user: "{{ user_name }}"
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/color-scheme"
+    value: "'prefer-dark'"
+    state: present
+
+- name: Set GNOME dock favorite applications
+  become_user: "{{ user_name }}"
+  community.general.dconf:
+    key: "/org/gnome/shell/favorite-apps"
+    value: "{{ gnome_favorite_apps }}"
+    state: present
+
+- name: Download wallpaper
+  get_url:
+    url: "{{ wallpaper_url }}"
+    dest: "{{ wallpaper_path }}"
+
+- name: Set GNOME background
+  become_user: "{{ user_name }}"
+  community.general.dconf:
+    key: "/org/gnome/desktop/background/picture-uri"
+    value: "'file://{{ wallpaper_path }}'"
+    state: present
+
+- name: Set GNOME dark background
+  become_user: "{{ user_name }}"
+  community.general.dconf:
+    key: "/org/gnome/desktop/background/picture-uri-dark"
+    value: "'file://{{ wallpaper_path }}'"
+    state: present
