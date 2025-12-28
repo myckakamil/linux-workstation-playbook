@@ -26,6 +26,8 @@ base_packages:
   - flatpak
   - gnome-extensions-app
   - steam
+  - flameshot
+  - fastfetch
 
 flatpak_apps:
   - org.mozilla.Thunderbird
@@ -51,3 +53,21 @@ gnome_favorite_apps:
   - com.slack.Slack.desktop
   - com.discordapp.Discord.desktop
   - steam.desktop
+
+dotfiles:
+  - src: files/bashrc
+    dir: "{{ user_home }}"
+    file: ".bashrc"
+    dir_mode: "0700"
+  - src: files/fastfetch.jsonc
+    dir: "{{ user_home }}/.config/fastfetch"
+    file: "config.jsonc"
+    dir_mode: "0755"
+  - src: files/neovim.lua
+    dir: "{{ user_home }}/.config/nvim/"
+    file: "init.lua"
+    dir_mode: "0755"
+  - src: files/flameshot.ini
+    dir: "{{ user_home }}/.config/flameshot/"
+    file: "flameshot.ini"
+    dir_mode: "0755"

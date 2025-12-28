@@ -13,3 +13,4 @@
     - import_tasks: tasks/flatpak.yaml
     - import_tasks: tasks/dev.yaml
     - import_tasks: tasks/gnome.yaml
+    - import_tasks: tasks/dotfiles.yaml

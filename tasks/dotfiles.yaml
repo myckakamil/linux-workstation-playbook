@@ -1,0 +1,18 @@
+---
+- name: Make sure all required directories exists
+  file:
+    name: "{{ item.dir }}"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: "{{ item.dir_mode }}"
+  loop: "{{ dotfiles }}"
+
+- name: Install dotfiles
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dir }}/{{ item.file }}"
+    owner: "{{ user_name }}"
+    group:  "{{ user_name }}"
+    mode: "0644"
+  loop: "{{ dotfiles }}"

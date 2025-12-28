@@ -1,0 +1,92 @@
+// ~/.config/fastfetch/config.jsonc
+// See https://github.com/fastfetch-cli/fastfetch/wiki/Configuration for more details
+// See *.jsonc in https://github.com/fastfetch-cli/fastfetch/tree/dev/presets/examples for more examples
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "display": {
+    "separator": " : "
+  },
+  "modules": [
+    {
+      "type": "custom",
+      "format": "┌────────────────────Software─────────────────────┐"
+    },
+    {
+      "type": "os",
+      "key": "",
+      "keyColor": "white"
+    },
+    {
+      "type": "kernel",
+      "key": "",
+      "keyColor": "white"
+    },
+    {
+      "type": "packages",
+      "key": "",
+      "keyColor": "white"
+    },
+    {
+      "type": "wm",
+      "key": "",
+      "keyColor": "white"
+    },
+    {
+      "type": "terminal",
+      "key": "",
+      "keyColor": "white"
+    },
+    {
+      "type": "shell",
+      "key": "",
+      "keyColor": "white"
+    },
+    {
+      "type": "command",
+      "key": "",
+      "keyColor": "white",
+      "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days"
+    },
+    {
+      "type": "custom",
+      "format": "└─────────────────────────────────────────────────┘"
+    },
+    "break",
+    {
+      "type": "custom",
+      "format": "┌────────────────────Hardware─────────────────────┐"
+    },
+    {
+      "type": "host",
+      "key": "󰇄",
+      "keyColor": "white"
+    },
+    {
+      "type": "cpu",
+      "key": "",
+      "keyColor": "white"
+    },
+    {
+      "type": "gpu",
+      "key": "󰍛",
+      "keyColor": "white"
+    },
+    {
+      "type": "memory",
+      "key": "",
+      "keyColor": "white"
+    },
+    {
+      "type": "disk",
+      "key": "",
+      "keyColor": "white"
+    },
+    {
+      "type": "custom",
+      "format": "└─────────────────────────────────────────────────┘"
+    }
+  ]
+}
+
+
+
