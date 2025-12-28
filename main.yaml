@@ -11,5 +11,5 @@
     - import_tasks: tasks/repos.yaml
     - import_tasks: tasks/packages_install.yaml
     - import_tasks: tasks/flatpak.yaml
-    - import_tasks: tasks/vscodium.yaml
+    - import_tasks: tasks/dev.yaml
     - import_tasks: tasks/gnome.yaml
