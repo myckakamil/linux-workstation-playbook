@@ -29,8 +29,10 @@ Included apps and tools
 - flatpak
 - gnome-extensions-app
 - steam
-- flameshot
 - fastfetch
+- gnome-shell-extension-appindicator.noarch
+- xdg-desktop-portal
+- trash-cli
 
 **Flatpaks**:
 - Thunderbird
@@ -40,6 +42,7 @@ Included apps and tools
 - Discord
 - Bitwarden
 - WinBox
+- Flameshot
 
 Removed packages
 ---
@@ -62,8 +65,8 @@ Roadmap
 ---
 - [ ] - Add Debian support (I haven't needed to reinstall my laptop with Debian for over 2 years, so I haven't found a reason to do this yet)
 - [ ] - More in-depth configuration of VSCodium and Neovim
-- [ ] - Shortcuts configuration
-- [ ] - Installing GNOME extensions
+- [x] - Shortcuts configuration
+- [x] - Installing and enabling GNOME extensions
 - [ ] - System hardening
 - [ ] - Set up Windows VM
 - [ ] - Sync with my Nextcloud instance
