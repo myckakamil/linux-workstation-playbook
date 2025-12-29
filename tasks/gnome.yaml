@@ -45,3 +45,51 @@
     key: "/org/gnome/desktop/background/picture-uri-dark"
     value: "'file://{{ wallpaper_path }}'"
     state: present
+
+- name: Enable app indicator extension
+  become_user: "{{ user_name }}"
+  community.general.dconf:
+    key: "/org/gnome/shell/enabled-extensions"
+    value: "['appindicatorsupport@rgcjonas.gmail.com']"
+    state: present
+
+- name: Add shortcut to mute mic
+  become_user: "{{ user_name }}"
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/mic-mute"
+    value: "['<Alt>m']"
+    state: present
+
+- name: Allow Flameshot Flatpak to take screenshots (Wayland)
+  become_user: "{{ user_name }}"
+  ansible.builtin.command:
+    cmd: flatpak permission-set screenshot screenshot org.flameshot.Flameshot yes
+  changed_when: false
+
+- name: Register Flameshot custom keybinding
+  become_user: "{{ user_name }}"
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
+    value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot/']"
+    state: present
+
+- name: Set Flameshot shortcut name
+  become_user: "{{ user_name }}"
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot/name"
+    value: "'Flameshot'"
+    state: present
+
+- name: Set Flameshot shortcut command
+  become_user: "{{ user_name }}"
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot/command"
+    value: "'flatpak run --command=flameshot org.flameshot.Flameshot gui'"
+    state: present
+
+- name: Set Flameshot shortcut binding
+  become_user: "{{ user_name }}"
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot/binding"
+    value: "'<Ctrl>Print'"
+    state: present

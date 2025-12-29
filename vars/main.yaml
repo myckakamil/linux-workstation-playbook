@@ -26,8 +26,11 @@ base_packages:
   - flatpak
   - gnome-extensions-app
   - steam
-  - flameshot
   - fastfetch
+  - nextcloud-client-nautilus
+  - gnome-shell-extension-appindicator.noarch
+  - xdg-desktop-portal
+  - trash-cli
 
 flatpak_apps:
   - org.mozilla.Thunderbird
@@ -37,6 +40,7 @@ flatpak_apps:
   - com.discordapp.Discord
   - com.bitwarden.desktop
   - com.mikrotik.WinBox
+  - org.flameshot.Flameshot
 
 wallpaper_url: "https://4kwallpapers.com/images/wallpapers/brown-mountains-aerial-view-mountain-range-landscape-3440x1440-2837.jpg"
 wallpaper_path: "{{ user_home }}/.config/background"
@@ -66,8 +70,4 @@ dotfiles:
   - src: files/neovim.lua
     dir: "{{ user_home }}/.config/nvim/"
     file: "init.lua"
-    dir_mode: "0755"
-  - src: files/flameshot.ini
-    dir: "{{ user_home }}/.config/flameshot/"
-    file: "flameshot.ini"
     dir_mode: "0755"
