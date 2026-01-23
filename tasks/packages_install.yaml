@@ -3,3 +3,9 @@
   package:
     name: "{{ base_packages }}"
     state: present
+
+- name: Add user to wireshark group
+  user:
+    name: "{{ user_name }}"
+    group: wireshark
+    append: true
