@@ -4,7 +4,7 @@
   become: true
 
   vars_files:
-    - vars/main.yaml
+    - config.yaml
 
   tasks:
     - import_tasks: tasks/cleanup.yaml
@@ -13,4 +13,5 @@
     - import_tasks: tasks/flatpak.yaml
     - import_tasks: tasks/dev.yaml
     - import_tasks: tasks/gnome.yaml
+      when: desktop_environment == "gnome"
     - import_tasks: tasks/dotfiles.yaml

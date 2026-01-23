@@ -10,3 +10,9 @@
   community.general.flatpak:
     name: "{{ flatpak_apps }}"
     state: present
+
+- name: Install GTK Flatpak applications
+  community.general.flatpak:
+    name: "{{ gnome_flatpak_apps }}"
+    state: present
+  when: desktop_environment == "gnome"

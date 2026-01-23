@@ -4,6 +4,11 @@
     name: "{{ base_packages }}"
     state: present
 
+- name: Install gnome specific packages
+  package:
+    name: "{{ gnome_packages }}"
+  when: desktop_environment == "gnome"
+
 - name: Add user to wireshark group
   user:
     name: "{{ user_name }}"

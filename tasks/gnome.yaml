@@ -24,7 +24,7 @@
   become_user: "{{ user_name }}"
   community.general.dconf:
     key: "/org/gnome/shell/favorite-apps"
-    value: "{{ gnome_favorite_apps }}"
+    value: "{{ taskbar_apps }}"
     state: present
 
 - name: Download wallpaper
