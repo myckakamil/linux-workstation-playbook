@@ -12,5 +12,5 @@
 - name: Add user to wireshark group
   user:
     name: "{{ user_name }}"
-    group: wireshark
+    groups: wireshark
     append: true

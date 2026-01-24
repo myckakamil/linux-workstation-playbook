@@ -19,6 +19,7 @@ unwanted_packages:
   - showtime
 
 base_packages:
+  - firefox
   - neovim
   - tmux
   - ncdu
@@ -46,10 +47,20 @@ flatpak_apps:
   - com.discordapp.Discord
   - com.bitwarden.desktop
   - com.mikrotik.WinBox
+  - com.anydesk.Anydesk
+  - com.calibre_ebook.calibre
+  - org.chromium.Chromium
+  - org.filezillaproject.Filezilla
+  - com.obsproject.Studio
+  - org.qbittorrent.qBittorrent
+  - org.remmina.Remmina
+  - org.videolan.VLC
+  - org.onlyoffice.desktopeditors
 
 gnome_flatpak_apps:
   - org.flameshot.Flameshot
   - com.usebottles.bottles
+  - net.nokyan.Resources
 
 wallpaper_url: "https://4kwallpapers.com/images/wallpapers/brown-mountains-aerial-view-mountain-range-landscape-3440x1440-2837.jpg"
 wallpaper_path: "{{ user_home }}/.config/background"
