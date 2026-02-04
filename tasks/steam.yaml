@@ -1,0 +1,23 @@
+- name: Add i386 architecture for AMD64 systems
+  command: dpkg --add-architecture i386
+  changed_when: false
+  when:
+    - ansible_facts['os_family'] in ["Debian", "Ubuntu"]
+- name: Update apt cache
+  apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install required libraries and packages
+  apt:
+    name:
+      - mesa-vulkan-drivers
+      - libglx-mesa0:i386
+      - mesa-vulkan-drivers:i386
+      - libgl1-mesa-dri:i386
+    state: present
+
+- name: Install steam
+  apt:
+    name: steam-installer
+    state: present

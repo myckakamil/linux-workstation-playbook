@@ -1,7 +1,6 @@
 ---
 user_name: kamil
 user_home: "/home/{{ user_name }}"
-desktop_environment: gnome  # gnome | kde
 
 unwanted_packages:
   - mediawriter
@@ -26,18 +25,12 @@ base_packages:
   - python3-psutil
   - tealdeer
   - flatpak
-  - steam
   - fastfetch
   - xdg-desktop-portal
   - trash-cli
   - htop
   - btop
   - wireshark
-
-gnome_packages:
-  - gnome-shell-extension-appindicator.noarch
-  - gnome-extensions-app
-  - nextcloud-client-nautilus
 
 flatpak_apps:
   - org.mozilla.Thunderbird
@@ -57,18 +50,13 @@ flatpak_apps:
   - org.videolan.VLC
   - org.onlyoffice.desktopeditors
 
-gnome_flatpak_apps:
-  - org.flameshot.Flameshot
-  - com.usebottles.bottles
-  - net.nokyan.Resources
-
 wallpaper_url: "https://4kwallpapers.com/images/wallpapers/brown-mountains-aerial-view-mountain-range-landscape-3440x1440-2837.jpg"
 wallpaper_path: "{{ user_home }}/.config/background"
 
 taskbar_apps:
-  - org.mozilla.firefox.desktop
-  - org.gnome.Ptyxis.desktop
-  - org.gnome.Nautilus.desktop
+  - firefox.desktop
+  - org.kde.konsole.desktop
+  - org.kde.dolphin.desktop
   - org.mozilla.Thunderbird.desktop
   - md.obsidian.Obsidian.desktop
   - codium.desktop
@@ -77,7 +65,6 @@ taskbar_apps:
   - com.slack.Slack.desktop
   - com.discordapp.Discord.desktop
   - steam.desktop
-  - com.usebottles.bottles.desktop
 
 dotfiles:
   - src: files/bashrc

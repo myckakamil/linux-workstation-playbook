@@ -8,10 +8,9 @@
 
   tasks:
     - import_tasks: tasks/cleanup.yaml
-    - import_tasks: tasks/repos.yaml
     - import_tasks: tasks/packages_install.yaml
     - import_tasks: tasks/flatpak.yaml
-    - import_tasks: tasks/dev.yaml
-    - import_tasks: tasks/gnome.yaml
-      when: desktop_environment == "gnome"
     - import_tasks: tasks/dotfiles.yaml
+    - import_tasks: tasks/dev.yaml
+    - import_tasks: tasks/kde.yaml
+    - import_tasks: tasks/steam.yaml

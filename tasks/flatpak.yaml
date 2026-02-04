@@ -1,5 +1,6 @@
 ---
 - name: Add Flathub repository (user)
+  become_user: "{{ user_name }}"
   community.general.flatpak_remote:
     name: flathub
     state: present
@@ -7,12 +8,8 @@
     method: user
 
 - name: Install Flatpak applications
+  become_user: "{{ user_name }}"
   community.general.flatpak:
     name: "{{ flatpak_apps }}"
     state: present
-
-- name: Install GTK Flatpak applications
-  community.general.flatpak:
-    name: "{{ gnome_flatpak_apps }}"
-    state: present
-  when: desktop_environment == "gnome"
+    method: user

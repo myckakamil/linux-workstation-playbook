@@ -1,6 +1,6 @@
 Linux Workstation Setup
 ===
-Ansible playbook that installs and configures software I use on my linux workstations (Fedora and Debian). 
+Ansible playbook that installs and configures software I use on my linux workstations (Debian). 
 
 > ⚠️ STILL WORK IN PROGRESS
 
@@ -63,10 +63,8 @@ I don't like having duplicate apps or apps I don't use, so I decided to uninstal
 
 Roadmap
 ---
-- [ ] - Add Debian support (I haven't needed to reinstall my laptop with Debian for over 2 years, so I haven't found a reason to do this yet)
 - [ ] - More in-depth configuration of VSCodium and Neovim
 - [x] - Shortcuts configuration
-- [x] - Installing and enabling GNOME extensions
 - [ ] - System hardening
 - [ ] - Set up Windows VM
 - [ ] - Sync with my Nextcloud instance

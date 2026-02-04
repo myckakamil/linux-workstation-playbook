@@ -1,0 +1,41 @@
+- name: Disable mouse acceleration (flat profile)
+  community.general.ini_file:
+    path: "{{ user_home }}/.config/kcminputrc"
+    section: "Libinput][1133][50504][Logitech USB Receiver Mouse"
+    option: PointerAccelerationProfile
+    value: "1"
+    create: yes
+
+- name: Enable centered krunner
+  community.general.kdeconfig:
+    path: "{{ user_home }}/.config/krunnerrc"
+    values:
+      - group: General
+        key: FreeFloating
+        value: true
+    mode: '0644'
+
+- name: Run krunner with meta+space
+  ansible.builtin.ini_file:
+    path: "{{ user_home }}/.config/kglobalshortcutsrc"
+    section: "services][org.kde.krunner.desktop"
+    option: "_launch"
+    value: "Meta+Space"
+    mode: '0644'
+
+- name: Use single instane for konsole (helpfull for eveng)
+  community.general.kdeconfig:
+    path: "{{ user_home }}/.config/konsolerc"
+    values:
+      - group: KonsoleWindow
+        key: UseSingleInstance
+        value: true
+    mode: '0644'
+
+- name: Set apps pinned in taskbar
+  community.general.ini_file:
+    path: "{{ user_home }}/.config/plasma-org.kde.plasma.desktop-appletsrc"
+    section: "Containments][2][Applets][5][Configuration][General"
+    option: launchers
+    value: "applications:{{ taskbar_apps | join(',applications:') }}"
+    mode: '0644'

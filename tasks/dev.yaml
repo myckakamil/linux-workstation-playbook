@@ -1,42 +1,60 @@
 ---
-- name: Add VSCodium repository
-  copy:
-    dest: /etc/yum.repos.d/vscodium.repo
-    content: |
-      [gitlab.com_paulcarroty_vscodium_repo]
-      name=gitlab.com_paulcarroty_vscodium_repo
-      baseurl=https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/rpms/
-      enabled=1
-      gpgcheck=1
-      repo_gpgcheck=1
-      gpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
-      metadata_expire=1h
-    owner: root
-    group: root
-    mode: "0644"
+- name: Install required packages
+  apt:
+    name:
+      - ca-certificates
+      - curl
+    state: present
 
-- name: Import VSCodium GPG key
-  rpm_key:
-    key: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
+- name: Ensure APT keyring directory exists
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+
+- name: Install VSCodium GPG key
+  get_url:
+    url: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
+    dest: /usr/share/keyrings/vscodium-archive-keyring.asc
+    mode: '0644'
+
+- name: Add VSCodium APT repository
+  apt_repository:
+    repo: >
+      deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/vscodium-archive-keyring.asc]
+      https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs
+      vscodium main
+    filename: vscodium
     state: present
 
 - name: Install VSCodium
-  package:
+  apt:
     name: codium
     state: present
 
-- name: Add docker repository
-  yum_repository:
-        name: docker-ce
-        description: Docker CE Stable
-        file: docker-ce
-        baseurl: https://download.docker.com/linux/fedora/$releasever/$basearch/stable
-        enabled: yes
-        gpgcheck: yes
-        gpgkey: https://download.docker.com/linux/fedora/gpg
+- name: Download Docker GPG key
+  get_url:
+    url: https://download.docker.com/linux/debian/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: '0644'
 
-- name: Install Docker packages
-  dnf:
+- name: Add Docker APT repository (deb822)
+  deb822_repository:
+    name: docker
+    types: deb
+    uris: https://download.docker.com/linux/debian
+    suites: trixie
+    components: stable
+    signed_by: /etc/apt/keyrings/docker.asc
+    state: present
+
+- name: Update cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install Docker Engine
+  apt:
     name:
       - docker-ce
       - docker-ce-cli
@@ -85,4 +103,4 @@
     file:
       path: /tmp/minikube-linux-amd64
       state: absent
-  when: not minikube_installed
+  when: not minikube_installed.stat.exists
